@@ -587,7 +587,7 @@ export class ERC1155Contract extends Entity {
   set id(value: Bytes) {
     this.set("id", Value.fromBytes(value));
   }
-
+  
   get asAccount(): Bytes {
     let value = this.get("asAccount");
     return value!.toBytes();
@@ -596,12 +596,51 @@ export class ERC1155Contract extends Entity {
   set asAccount(value: Bytes) {
     this.set("asAccount", Value.fromBytes(value));
   }
+  get supportsMetadata(): boolean {
+    let value = this.get("supportsMetadata");
+    return value!.toBoolean();
+  }
+
+  set supportsMetadata(value: boolean) {
+    this.set("supportsMetadata", Value.fromBoolean(value));
+  }
+  get name(): string | null {
+    let value = this.get("name");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+  set name(value: string | null) {
+    if (!value) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(<string>value));
+    }
+  }
+  
+  get symbol(): string | null {
+    let value = this.get("symbol");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set symbol(value: string | null) {
+    if (!value) {
+      this.unset("symbol");
+    } else {
+      this.set("symbol", Value.fromString(<string>value));
+    }
+  }
 
   get tokens(): Array<string> {
     let value = this.get("tokens");
     return value!.toStringArray();
   }
-
   set tokens(value: Array<string>) {
     this.set("tokens", Value.fromStringArray(value));
   }
